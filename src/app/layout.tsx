@@ -1,4 +1,3 @@
-// app/layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
 import SupabaseProvider from "@/src/components/SupabaseProvider";
@@ -16,10 +15,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-     <body className="min-h-screen bg-gray-100 text-gray-900">
+      <body className="min-h-screen bg-gray-50 text-gray-900 antialiased">
         <SupabaseProvider>
           <Navbar />
-          <main className="max-w-2xl mx-auto p-4">{children}</main>
+          <main className="max-w-4xl mx-auto px-4 py-6 md:px-6 md:py-8">
+            {children}
+          </main>
         </SupabaseProvider>
       </body>
     </html>

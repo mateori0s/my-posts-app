@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseServer } from "@/src/lib/supabaseServerClient";
+import { supabaseServer } from "@/src/lib/supabase";
 
 // GET /api/posts  -> lista todos los posts
 export async function GET(_req: NextRequest) {
@@ -12,6 +12,7 @@ export async function GET(_req: NextRequest) {
         content,
         image_url,
         created_at,
+        author_id,
         profiles (
           username,
           avatar_url
@@ -73,6 +74,7 @@ export async function POST(req: NextRequest) {
         content,
         image_url,
         created_at,
+        author_id,
         profiles (
           username,
           avatar_url

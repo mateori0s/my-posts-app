@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseServer } from "@/src/lib/supabaseServerClient";
+import { supabaseServer } from "@/src/lib/supabase";
 
 // GET /api/posts/:postId/comments
 export async function GET(
@@ -24,6 +24,8 @@ export async function GET(
         content,
         image_url,
         created_at,
+        post_id,
+        author_id,
         author:profiles (
           id,
           username,
@@ -66,9 +68,21 @@ export async function POST(
   try {
     const { content, imageUrl, userId } = await req.json();
 
-    if (!content || !userId) {
+    // Validate input
+    const hasText = typeof content === "string" && content.trim().length > 0;
+    const hasImage =
+      typeof imageUrl === "string" && imageUrl.trim().length > 0;
+
+    if (!hasText && !hasImage) {
       return NextResponse.json(
-        { error: "content and userId are required" },
+        { error: "Either content or imageUrl is required" },
+        { status: 400 }
+      );
+    }
+
+    if (!userId) {
+      return NextResponse.json(
+        { error: "userId is required" },
         { status: 400 }
       );
     }
@@ -78,8 +92,8 @@ export async function POST(
       .insert({
         post_id: postId,
         author_id: userId,
-        content,
-        image_url: imageUrl ?? null,
+        content: hasText ? content : null,
+        image_url: hasImage ? imageUrl : null,
       })
       .select(
         `
@@ -87,6 +101,8 @@ export async function POST(
         content,
         image_url,
         created_at,
+        post_id,
+        author_id,
         author:profiles (
           id,
           username,
