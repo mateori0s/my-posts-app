@@ -255,6 +255,15 @@ You can find these values in your Supabase dashboard:
 - Go to **Settings** > **API**
 - Copy the **Project URL** and **anon/public key**
 
+
+To simplify the setup process for reviewers, this repository includes my own public Supabase credentials (NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY) inside the env.example file.
+These keys are safe to share and expose no elevated permissions. They only provide access to the public API layer of a pre-configured Supabase project used during development.
+
+This means that you do not need to create your own Supabase project or configure tables, authentication, storage buckets, or RLS policies in order to run the application locally.
+
+If you prefer to use your own Supabase instance instead, simply replace the values in .env.local with your project’s credentials and update the schema accordingly.
+
+
 4. **Set up Supabase Database**
 
 Run the following SQL in the Supabase SQL Editor:
