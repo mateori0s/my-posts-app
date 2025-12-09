@@ -34,7 +34,7 @@ describe('AuthService', () => {
       expect(supabaseBrowser.auth.signInWithOAuth).toHaveBeenCalledWith({
         provider: 'github',
         options: {
-          redirectTo: 'http://localhost:3000/auth/callback',
+          redirectTo: 'https://my-posts-app-mateorios.vercel.app/auth/callback',
         },
       });
       expect(result.error).toBeNull();
