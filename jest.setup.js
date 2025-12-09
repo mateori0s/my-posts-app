@@ -25,8 +25,8 @@ jest.mock('next/navigation', () => ({
 // Mock window.location
 Object.defineProperty(window, 'location', {
   value: {
-    origin: 'https://my-posts-app-mateorios.vercel.app/',
-    href: 'https://my-posts-app-mateorios.vercel.app/',
+    origin: 'http://localhost:3000',
+    href: 'http://localhost:3000',
     pathname: '/',
   },
   writable: true,

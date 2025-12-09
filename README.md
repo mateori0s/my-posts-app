@@ -173,6 +173,8 @@ Similar to post creation:
   - Authenticated users can create posts/comments
   - Users can only update their own profiles
 
+(In the development environment, we created two policies to be able to post from Vercel.)
+
 ## 🎯 Approach and Methodology
 
 ### Development Philosophy
@@ -329,6 +331,19 @@ CREATE POLICY "Comments are viewable by everyone" ON comments
 
 CREATE POLICY "Users can create comments" ON comments
   FOR INSERT WITH CHECK (auth.uid() = author_id);
+
+-- ALLOW SELECT TO ANYONE (ONLY IN DEVELOPMENT ENVIRONMENT)
+CREATE POLICY "READ POSTS FOR EVERYONE"
+ON POSTS
+FOR SELECT
+USING ( TRUE );
+
+-- ALLOW INSERT EVEN FROM ANON (API WITH ANON KEY - ONLY IN DEVELOPMENT ENVIRONMENT)
+CREATE POLICY "INSERT POSTS FROM API"
+ON POSTS
+FOR INSERT
+TO ANON
+WITH CHECK ( TRUE );
 ```
 
 5. **Set up Supabase Storage**
